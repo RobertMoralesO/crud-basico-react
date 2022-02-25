@@ -28,7 +28,10 @@ function App() {
     setError(null)
   }
 
-
+  const eliminarTarea = id => {
+    const arrayAux = tareas.filter(item => item.id !== id)
+    setTareas(arrayAux)
+  }
 
   return (
     <div className="container mt-5">
@@ -43,9 +46,10 @@ function App() {
                 <li className="list-group-item" key={item.id}>
                   <span className="lead">{item.nombreTarea}</span>
                   
-                      <button className='btn btn-danger btn-sm float-right mx+20'>Eliminar</button>
+                      <button 
+                        className='btn btn-danger btn-sm float-right mx-2'
+                        onClick={() => eliminarTarea(item.id)}>Eliminar</button>
                       <button className='btn btn-warning btn-sm float-right'>Editar</button>
-                  
                 </li>
               ))
             }
