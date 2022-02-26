@@ -72,7 +72,7 @@ function App() {
       <hr />
       <div className="row">
         <div className="col-8">
-          <h4 className="text-center">Listado de tareas</h4>
+          <h4 className="text-center">Listados de tareas</h4>
           <ul className="list-group">
             {
               tareas.map(item => (
