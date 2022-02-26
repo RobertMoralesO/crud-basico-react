@@ -9,6 +9,7 @@ function App() {
   const [tareas, setTareas] = React.useState([])
   const [id, setId] = React.useState('')
   const [error, setError] = React.useState(null)
+  const [modoEdicion, setModoEdicion] = React.useState(false)
 
   const agregarTarea = e => {
     e.preventDefault()
@@ -33,6 +34,37 @@ function App() {
     setTareas(arrayAux)
   }
 
+  const editar = item =>{
+    setError(null)
+    setModoEdicion(true)
+    setTarea(item.nombreTarea)
+    setId(item.id)
+  }
+
+  const cancelar = () =>{
+    setModoEdicion(false)
+    setTarea('')
+    setId('')
+    setError(null)
+  }
+
+  const editarTarea = e =>{
+    e.preventDefault()
+    if(!tarea.trim()){
+      setError('Digite la Tarea')
+      return
+    }
+
+    const arrayEditado = tareas.map(
+      item => item.id=== id ? {id:id, nombreTarea:tarea} : item
+      )
+
+      setTareas(arrayEditado)
+      setTarea('')
+      setId('')
+      setError(null)
+  }
+
   return (
     <div className="container mt-5">
       <h1 className="text-center">CRUD BÁSICO</h1>
@@ -47,9 +79,11 @@ function App() {
                   <span className="lead">{item.nombreTarea}</span>
                   
                       <button 
-                        className='btn btn-danger btn-sm float-right mx-2'
+                        className='btn btn-danger btn-sm float-end mx-2'
                         onClick={() => eliminarTarea(item.id)}>Eliminar</button>
-                      <button className='btn btn-warning btn-sm float-right'>Editar</button>
+                      <button 
+                      className='btn btn-warning btn-sm float-end'
+                      onClick ={() => editar(item)}>Editar</button>
                 </li>
               ))
             }
@@ -58,10 +92,10 @@ function App() {
         <div className="col-4">
           <h4 className="text-center">
             {
-
+              modoEdicion ? 'Editar Tarea' : 'Agregar Tarea'
             }
           </h4>
-          <form onSubmit={agregarTarea}>
+          <form onSubmit={modoEdicion ? editarTarea : agregarTarea}>
             {
               error ? <span className='text-danger'>{error}</span> : null
             }
@@ -72,10 +106,23 @@ function App() {
               onChange={e => setTarea(e.target.value)}
               value = {tarea}
             />
-            <button
-              className="btn btn-dark btn-block" 
-              type='submit'>Agregar</button>
-
+            {
+              modoEdicion ?
+              (<>
+                <button
+                className="btn btn-warning btn-block" 
+                type='submit'>Editar</button>
+                <button
+                className="btn btn-dark btn-block mx-2" 
+                onClick ={() => cancelar()}>Cancelar</button>
+                </>)
+                : 
+                (<button
+                  className="btn btn-dark btn-block" 
+                  type='submit'>Agregar</button>
+                  )
+            }
+            
           </form>
         </div>
       </div>
