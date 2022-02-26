@@ -63,6 +63,7 @@ function App() {
       setTarea('')
       setId('')
       setError(null)
+      setModoEdicion(false)
   }
 
   return (
