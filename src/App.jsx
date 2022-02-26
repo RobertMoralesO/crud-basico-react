@@ -72,7 +72,7 @@ function App() {
       <hr />
       <div className="row">
         <div className="col-8">
-          <h4 className="text-center">Lista de tareas</h4>
+          <h4 className="text-center">Listado de tareas</h4>
           <ul className="list-group">
             {
               tareas.map(item => (
@@ -109,14 +109,14 @@ function App() {
             />
             {
               modoEdicion ?
-              (<>
-                <button
+               (<>
+                 <button
                 className="btn btn-warning btn-block" 
                 type='submit'>Editar</button>
                 <button
                 className="btn btn-dark btn-block mx-2" 
                 onClick ={() => cancelar()}>Cancelar</button>
-                </>)
+               </>)
                 : 
                 (<button
                   className="btn btn-dark btn-block" 
